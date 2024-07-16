@@ -16,9 +16,9 @@ const TextFieldTheme = (outerTheme: Theme) =>
                         '& label.Mui-focused': {
                             color: 'var(--TextField-brandBorderFocusedColor)',
                         },
-                        '& label': {
-                            color: 'white', // Change label text color to white
-                        },
+                        // '& label': {
+                        //     color: 'white', // Change label text color to white
+                        // },
                     },
                 },
             },

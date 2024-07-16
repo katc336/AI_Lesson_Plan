@@ -7,9 +7,29 @@
     color: white;
     border-color: transparent;
     border-radius: 50px;
+    width: 20vw;
 }
 
 .submit-button:hover {
+    scale: 1.1;
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.mobile-submit-button {
+    background-image: linear-gradient(to right, #8e9eab 0%, #eef2f3 51%, #8e9eab 100%);
+    margin-left: 15px;
+    transition: 1s;
+    padding: 0px 25px;
+    background-size: 200%;
+    color: white;
+    border-color: transparent;
+    border-radius: 50px;
+    width: 80vw;
+}
+
+.mobile-submit-button:hover {
     scale: 1.1;
     background-position: right center;
     color: #fff;
