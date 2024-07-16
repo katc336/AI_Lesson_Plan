@@ -1,58 +1,54 @@
 import TextField from '@mui/material/TextField';
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
-import { createTheme, ThemeProvider, Theme, useTheme } from '@mui/material/styles';
+import Stack from '@mui/material/Stack';
+import SearchIcon from '@mui/icons-material/Search';
+import { ThemeProvider, useTheme } from '@mui/material/styles';
 import { useState } from 'react';
-
-const customTheme = (outerTheme: Theme) =>
-    createTheme({
-        palette: {
-            mode: outerTheme.palette.mode,
-        },
-        components: {
-            MuiTextField: {
-                styleOverrides: {
-                    root: {
-                        '--TextField-brandBorderColor': 'transparent',
-                        '--TextField-brandBorderHoverColor': '#B2BAC2',
-                        '--TextField-brandBorderFocusedColor': '#6F7E8C',
-                        '& label.Mui-focused': {
-                            color: 'var(--TextField-brandBorderFocusedColor)',
-                        },
-                        '& label': {
-                            color: 'white', // Change label text color to white
-                        },
-                    },
-                },
-            },
-            MuiOutlinedInput: {
-                styleOverrides: {
-                    notchedOutline: {
-                        borderColor: 'var(--TextField-brandBorderColor)',
-                    },
-                    root: {
-                        [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-                            borderColor: 'var(--TextField-brandBorderHoverColor)',
-                        },
-                        [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-                            borderColor: 'var(--TextField-brandBorderFocusedColor)',
-                        },
-                    },
-                },
-            },
-        },
-    });
+import TextFieldTheme from './TextFieldTheme';
+import { usePostSearchMutation } from '../../redux/langApi';
+import.meta.env.variable
 
 const PromptTextField: React.FC = () => {
     const [promptText, setPromptText] = useState("");
     const outerTheme = useTheme();
+    const [postSearch] = usePostSearchMutation();
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        if (promptText === "" || promptText === " " ) {
+            console.error("Error: The search cannot be empty");
+            return;
+        }
+        try {
+            const response = await postSearch({
+                api_key: "your tavily API key or from .env",
+                query: promptText,
+                search_depth: "basic",
+                include_answer: false,
+                include_images: true,
+                include_raw_content: false,
+                max_results: 5,
+                include_domains: [],
+                exclude_domains: []
+            });
+            console.log("Post search response:", response);
+        } catch (error) {
+            console.error("Error while posting search:", error);
+        }
+    }
     return (
-        <ThemeProvider theme={customTheme(outerTheme)}>
-            <TextField
-                value={promptText}
-                onChange={(event) => setPromptText(event.target.value)}
-                sx={{ minWidth: "50vw", backgroundColor: "#2D3C46" }}
-                label="Enter prompt here..."
-            />
+        <ThemeProvider theme={TextFieldTheme(outerTheme)}>
+            <form onSubmit={handleSubmit}>
+                <Stack direction="row">
+                    <TextField
+                        value={promptText}
+                        onChange={(event) => setPromptText(event.target.value)}
+                        sx={{ minWidth: "50vw", backgroundColor: "#2D3C46" }}
+                        label="Enter prompt here..."
+                    />
+                    <button className="submit-button" type="submit">
+                        <SearchIcon />
+                    </button>
+                </Stack>
+            </form>
         </ThemeProvider>
     );
 }

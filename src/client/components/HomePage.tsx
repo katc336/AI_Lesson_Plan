@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
                 sx={{ fontWeight: "bold", color: "#F7FFED", textAlign: "center" }}>
             Lesson Plan Builder
             </Typography>
-            <Box style={{
+            <div style={{
                 marginTop: "80vh",
                 display: "flex",
                 flexDirection: "column",
@@ -21,7 +21,7 @@ const HomePage: React.FC = () => {
                 alignItems: "center"
             }}>
                 <PromptTextField />
-            </Box>
+            </div>
         </div>
     )
 }
