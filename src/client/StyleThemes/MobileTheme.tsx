@@ -7,5 +7,4 @@ const MobileTheme = () => {
    const isMobile = useMediaQuery(customTheme.breakpoints.down("sm"));
    return { customTheme, isMobile };
 }
-
 export default MobileTheme;

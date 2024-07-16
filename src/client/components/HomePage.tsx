@@ -1,11 +1,10 @@
-import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from "@mui/material/Typography";
 import TextField from '@mui/material/TextField';
 import LessonComponents from "./LessonComponent";
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useMediaQuery, useTheme, ThemeProvider } from "@mui/material";
+import { useTheme, ThemeProvider } from "@mui/material";
 import TextFieldTheme from '../StyleThemes/TextFieldTheme';
 import MobileTheme from '../StyleThemes/MobileTheme';
 import { useState } from 'react';
@@ -13,28 +12,24 @@ import { useState } from 'react';
 const HomePage: React.FC = () => {
     const [promptText, setPromptText] = useState("");
     const [studentAge, setStudentAge] = useState("");
-    const [isButtonClicked, setIsButtonClicked] = useState(false);
     const theme = useTheme();
     const outerTheme = useTheme();
     const { isMobile } = MobileTheme();
     const handleChange = (event: SelectChangeEvent) => {
         setStudentAge(event.target.value as string);
     };
-    const handleButtonClick = () => {
-        setIsButtonClicked(true);
-    };
 
     return (
         <div>
             <Typography
-                variant={isMobile ? "h6" : "h3"}
+                variant={isMobile ? "h4" : "h3"}
                 sx={{ fontWeight: "bold", color: "#F7FFED", textAlign: "center", my: 3 }}>
                 Lesson Plan Builder
             </Typography>
             <Stack spacing={3} direction={"column"}>
                 <Stack direction={isMobile ? "column" : "row"} spacing={2} sx={{ justifyContent: "center" }}>
                     <Stack direction={"column"}>
-                        <Typography variant="h6" sx={{ color: "white", mb: 1  }}>
+                        <Typography variant="h6" sx={{ color: "white", mb: 1 }}>
                             Add Your Lesson Topic
                         </Typography>
                         <ThemeProvider theme={TextFieldTheme(outerTheme)}>
@@ -42,8 +37,7 @@ const HomePage: React.FC = () => {
                                 value={promptText}
                                 onChange={(event) => setPromptText(event.target.value)}
                                 sx={{ minWidth: "30vw", backgroundColor: "#8e9eab", borderRadius: "5px" }}
-                                label="What you are teaching?"
-                            />
+                                label="What you are teaching?" />
                         </ThemeProvider>
                     </Stack>
                     <Stack direction={"column"}>
@@ -62,7 +56,7 @@ const HomePage: React.FC = () => {
                     </Stack>
                 </Stack>
                 <LessonComponents
-                    section="learning objective"
+                    section="a specific learning objective"
                     search="Generate Learning Objective"
                     lessonTopic={`${promptText}`}
                     studentAge={`${studentAge}`}
@@ -74,7 +68,7 @@ const HomePage: React.FC = () => {
                     studentAge={`${studentAge}`}
                 />
                 <LessonComponents
-                    section="teacher's presentation steps for the concept of"
+                    section="an explanation for a teacher to present the concept of"
                     search="Generate Presentation"
                     lessonTopic={`${promptText}`}
                     studentAge={`${studentAge}`}
