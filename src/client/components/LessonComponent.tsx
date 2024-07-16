@@ -51,24 +51,19 @@ const LessonComponents: React.FC<PromptProps> = ({ section, search, lessonTopic,
                 </ThemeProvider>
             </Grid>
             <Grid item xs={isMobile ? 12 : 4}>
-                <Card
-                    sx={{ 
-                        my: 3,
-                        p: 2,
-                        backgroundImage: "radial-gradient(circle, #eef2f3, #e7eef1, #e1eaef, #dce6ed, #d7e1eb, #cfdae5, #c8d2df, #c1cbd9, #b4c0cd, #a7b4c2, #9ba9b6, #8e9eab)" 
-                    }}
-                    elevation={10}>
-                    <Typography>
-                        {!responseData
-                            ? //If not responseData 
-                            <div />
-                            : //If there is resonse data
-                            <div>
-                                <Typography>{responseData}</Typography>
-                            </div>
-                        }
-                    </Typography>
-                </Card>
+                <Typography>
+                    {!responseData
+                        ? //If not responseData 
+                        <div />
+                        : //If there is resonse data
+                        <Card
+                            sx={{ my: 3, p: 2, backgroundImage: "radial-gradient(circle, #eef2f3, #e7eef1, #e1eaef, #dce6ed, #d7e1eb, #cfdae5, #c8d2df, #c1cbd9, #b4c0cd, #a7b4c2, #9ba9b6, #8e9eab)"}}
+                            elevation={10}>
+                            <Typography>{responseData}</Typography>
+                        </Card>
+                    }
+                </Typography>
+
             </Grid>
         </Grid>
     );

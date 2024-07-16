@@ -3,7 +3,6 @@ import Stack from '@mui/material/Stack';
 import Typography from "@mui/material/Typography";
 import TextField from '@mui/material/TextField';
 import LessonComponents from "./LessonComponent";
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useMediaQuery, useTheme, ThemeProvider } from "@mui/material";
@@ -33,26 +32,34 @@ const HomePage: React.FC = () => {
                 Lesson Plan Builder
             </Typography>
             <Stack spacing={3} direction={"column"}>
-                <Stack direction={"row"} sx={{ justifyContent: "center" }}>
-                    <ThemeProvider theme={TextFieldTheme(outerTheme)}>
-                        <TextField
-                            value={promptText}
-                            onChange={(event) => setPromptText(event.target.value)}
-                            sx={{ minWidth: "30vw", backgroundColor: "#8e9eab", borderRadius: "5px" }}
-                            label="What you are teaching?"
-                        />
-                    </ThemeProvider>
-                    <InputLabel sx={{ ml: 3, mr: 1, mt: 2, color: "white", }}>Student's Age</InputLabel>
-                    <Select
-                        sx={{ backgroundColor: "#8e9eab" }}
-                        value={studentAge}
-                        label="Student Age"
-                        onChange={handleChange} >
-                        <MenuItem value={"elementary aged"}>Elementary Age</MenuItem>
-                        <MenuItem value={"middle school aged"}>Middle School Age</MenuItem>
-                        <MenuItem value={"high school aged"}>High School Age</MenuItem>
-                        <MenuItem value={"adults"}>Adult</MenuItem>
-                    </Select>
+                <Stack direction={isMobile ? "column" : "row"} spacing={2} sx={{ justifyContent: "center" }}>
+                    <Stack direction={"column"}>
+                        <Typography variant="h6" sx={{ color: "white", mb: 1  }}>
+                            Add Your Lesson Topic
+                        </Typography>
+                        <ThemeProvider theme={TextFieldTheme(outerTheme)}>
+                            <TextField
+                                value={promptText}
+                                onChange={(event) => setPromptText(event.target.value)}
+                                sx={{ minWidth: "30vw", backgroundColor: "#8e9eab", borderRadius: "5px" }}
+                                label="What you are teaching?"
+                            />
+                        </ThemeProvider>
+                    </Stack>
+                    <Stack direction={"column"}>
+                        <Typography variant="h6" sx={{ color: "white", mb: 1 }}>
+                            Select Your Student's Age
+                        </Typography>
+                        <Select
+                            sx={{ backgroundColor: "#8e9eab" }}
+                            value={studentAge}
+                            onChange={handleChange} >
+                            <MenuItem value={"elementary aged"}>Elementary Age</MenuItem>
+                            <MenuItem value={"middle school aged"}>Middle School Age</MenuItem>
+                            <MenuItem value={"high school aged"}>High School Age</MenuItem>
+                            <MenuItem value={"adults"}>Adult</MenuItem>
+                        </Select>
+                    </Stack>
                 </Stack>
                 <LessonComponents
                     section="learning objective"
